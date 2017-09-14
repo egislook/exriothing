@@ -1,0 +1,25 @@
+{
+  "name": "exriothing",
+  "version": "0.0.1",
+  "description": "riot & express server side tag compiling, rendering and routing functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "html5",
+    "poinout",
+    "riot",
+    "node",
+    "express"
+  ],
+  "author": "noneedsystem",
+  "license": "MIT",
+  "dependencies": {
+    "riot": "^3.6.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noneedsystem/exriothing.git"
+  }
+}
