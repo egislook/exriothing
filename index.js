@@ -33,6 +33,7 @@ const root = {
 exports.init = init;
 exports.initMixins = initMixins;
 exports.render = render;
+exports.renderHTML = renderHTML;
 exports.riotTagRoute = tagRoute;
 exports.cleantRequire = cleantRequire;
 
@@ -45,8 +46,9 @@ exports.riotTagRender = (cfg) => {
 /** loads all riot tags in the cfg.viewPath and compiles root html and scripts */
 
 function init(cfg = { rootFilePath: '', viewPath: '', appPath: '', skipViews: ['app.tag.html'] }){
+  compileRiot(cfg.rootFilePath);
   requireViews(cfg.viewPath, cfg.skipViews, () => {
-    root.html = fs.readFileSync(cfg.rootFilePath, 'utf8');
+    //root.html = fs.readFileSync(cfg.rootFilePath, 'utf8');
     root.scripts = generateScripts(cfg.appPath);
   });
 }
@@ -64,6 +66,14 @@ function initMixins(mixins = {}, extras = {}){
 
 
 /** */
+
+function renderHTML(opts = {}){
+  Object.assign(opts, {
+    VIEWS:  root.scripts,
+  });
+
+  return `<!DOCTYPE html> ${riot.render('html', opts)}`;
+}
 
 function render(filePath, opts = { stores: {}}, cb){
 
@@ -177,15 +187,17 @@ function requireViews(path, skipViewFiles, cb){
 
 function generateScripts(appPath){
   let _filePath, SCRIPTS = '';
+  let clearViews = [];
   if(Object.keys(views).length){
     for(let view in views){
       _filePath = `.${views[view].replace(appPath, '')}`;
+      clearViews.push(_filePath);
       SCRIPTS += `<script type="riot/tag" data-src="${_filePath}" defer></script>\n`;
     }
   }
+  return clearViews;
   //console.log(SCRIPTS);
-
-  return SCRIPTS;
+  //return SCRIPTS;
 }
 
 function compileRiot(filePath, cb){
