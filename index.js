@@ -58,9 +58,7 @@ function initMixins(mixins = {}, extras = {}){
     return;
 
   for(let mixinName in mixins){
-    //let mixin = mixins[mixinName];
-    //console.log(typeof mixin === 'function');
-    riot.mixin(mixinName, mixins[mixinName]);
+    riot.mixin(mixinName, mixins[mixinName], mixinName.indexOf('global') >= 0);
   }
 }
 
