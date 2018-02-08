@@ -1,6 +1,6 @@
 {
   "name": "exriothing",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "riot & express server side tag compiling, rendering and routing functions",
   "main": "index.js",
   "scripts": {
